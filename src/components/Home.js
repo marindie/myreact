@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import { Link } from "react-router-dom";
-import { Container, Divider, Grid, Image, Segment, Button, Icon } from 'semantic-ui-react'
+import { Select, Label, Dropdown, Input, Container, Divider, Grid, Image, Segment, Button, Icon } from 'semantic-ui-react'
 import '../App.css';
 import MainProvider from './MainProvider';
 import Category from './Category';
 
+const options = [
+  { key: '.com', text: '.com', value: '.com' },
+  { key: '.net', text: '.net', value: '.net' },
+  { key: '.org', text: '.org', value: '.org' },
+]
+
 class Home extends React.Component {
+  inputRef = createRef()
+  handleClick = () => this.inputRef.current.focus()
+
     render() {
       return (
         <MainProvider>
@@ -15,16 +24,96 @@ class Home extends React.Component {
                 <p>
                   <Image src={require('../image/1.jpg')} />
                 </p>
-                <p>
-                  <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
-                </p>
-                <p>
-                  <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
-                </p>
-                <p>
-                  <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
-                </p>
+                <Input placeholder='Search...' />
+                <Input focus placeholder='Search...' />
+                <Input loading icon='user' iconPosition='left' placeholder='Search...' />
+                <Input disabled placeholder='Search...' />
+                <Input error placeholder='Search...' />
+                <Input icon='search' placeholder='Search...' />
+                <Input icon='users' iconPosition='left' placeholder='Search users...' />
+                <Input
+                  icon={{ name: 'search', circular: true, link: true }}
+                  placeholder='Search...'
+                />
+                <Input
+                  icon={<Icon name='search' inverted circular link />}
+                  placeholder='Search...'
+                />
+              <Input icon placeholder='Search...'>
+                <input />
+                <Icon name='search' />
+              </Input>
+              <Input iconPosition='left' placeholder='Email'>
+                <Icon name='at' />
+                <input />
+              </Input>
+              <Input label='http://' placeholder='mysite.com' />
+              <Input
+                label={<Dropdown defaultValue='.com' options={options} />}
+                labelPosition='right'
+                placeholder='Find domain'
+              />
+              <Input labelPosition='right' type='text' placeholder='Amount'>
+                <Label basic>$</Label>
+                <input />
+                <Label>.00</Label>
+              </Input>
+              <Input
+                icon='tags'
+                iconPosition='left'
+                label={{ tag: true, content: 'Add Tag' }}
+                labelPosition='right'
+                placeholder='Enter tags'
+              />
+              <Input action='Search' placeholder='Search...' />
+              <Input
+                action={{
+                  color: 'teal',
+                  labelPosition: 'left',
+                  icon: 'cart',
+                  content: 'Checkout',
+                }}
+                actionPosition='left'
+                placeholder='Search...'
+                defaultValue='52.03'
+              />
+              <Input
+                action={
+                  <Dropdown button basic floating options={options} defaultValue='page' />
+                }
+                icon='search'
+                iconPosition='left'
+                placeholder='Search...'
+              />
+              <Input type='text' placeholder='Search...' action>
+                <input />
+                <Select compact options={options} defaultValue='articles' />
+                <Button type='submit'>Search</Button>
+              </Input>
+              <Input
+                action={{
+                  color: 'teal',
+                  labelPosition: 'right',
+                  icon: 'copy',
+                  content: 'Copy',
+                }}
+                defaultValue='http://ww.short.url/c0opq'
+              />
+              <Input transparent placeholder='Search...' />
+              <Segment inverted>
+                <Input inverted placeholder='Search...' />
+              </Segment>      
+              <Input fluid icon='search' placeholder='Search...' />
+              <Button content='focus' onClick={this.handleClick} />
+              <Input ref={this.inputRef} placeholder='Search...' /> 
+              <Input list='languages' placeholder='Choose language...' />
+              <datalist id='languages'>
+                <option value='English' />
+                <option value='Chinese' />
+                <option value='Dutch' />
+              </datalist>                       
               </Grid.Column>
+              
               <Grid.Column>
                   <Image src={require('../image/2.jpg')} size='large' wrapped />
                 <p>
