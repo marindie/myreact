@@ -1,6 +1,6 @@
 import React, { createRef } from 'react';
 import { Link } from "react-router-dom";
-import { Select, Label, Dropdown, Input, Container, Divider, Grid, Image, Segment, Button, Icon } from 'semantic-ui-react'
+import { Sticky, Select, Label, Dropdown, Input, Container, Divider, Grid, Image, Segment, Button, Icon } from 'semantic-ui-react'
 import '../App.css';
 import MainProvider from './MainProvider';
 import Category from './Category';
@@ -11,16 +11,92 @@ const options = [
   { key: '.org', text: '.org', value: '.org' },
 ]
 
+const menuOptions = [
+  {
+    key: 'Oracle PL/SQL',
+    text: 'Oracle PL/SQL',
+    value: 'Oracle PL/SQL',
+    label: { color: 'red', empty: true, circular: true },
+  },
+  {
+    key: 'React',
+    text: 'React',
+    value: 'React',
+    label: { color: 'blue', empty: true, circular: true },
+  },
+  {
+    key: 'Spring Boot',
+    text: 'Spring Boot',
+    value: 'Spring Boot',
+    label: { color: 'black', empty: true, circular: true },
+  },
+  {
+    key: 'Android',
+    text: 'Android',
+    value: 'Android',
+    label: { color: 'purple', empty: true, circular: true },
+  },
+  {
+    key: 'Linux',
+    text: 'Linux',
+    value: 'Linux',
+    label: { color: 'orange', empty: true, circular: true },
+  },
+  {
+    key: 'Regular Expression',
+    text: 'Regular Expression',
+    value: 'Regular Expression',
+    label: { empty: true, circular: true },
+  },
+  {
+    key: 'Java',
+    text: 'Java',
+    value: 'Java',
+    label: { color: 'yellow', empty: true, circular: true },
+  },
+  {
+    key: 'Jenkins',
+    text: 'Jenkins',
+    value: 'Jenkins',
+    label: { color: 'pink', empty: true, circular: true },
+  },
+  {
+    key: 'Ant',
+    text: 'Ant',
+    value: 'Ant',
+    label: { color: 'green', empty: true, circular: true },
+  },
+]
+
 class Home extends React.Component {
   inputRef = createRef()
+  contextRef = createRef()
   handleClick = () => this.inputRef.current.focus()
 
     render() {
       return (
         <MainProvider>
+          <div ref={this.contextRef}>
+          <Sticky context={this.contextRef}>  
+            <Segment inverted color='violet' >
+                <Dropdown icon='star'>
+                  <Dropdown.Menu>
+                    <Input icon='search' iconPosition='left' className='search' />
+                    <Dropdown.Divider />
+                    <Dropdown.Header icon='tags' content='Article' />
+                    <Dropdown.Menu scrolling>
+                      {menuOptions.map((option) => (
+                        <Dropdown.Item key={option.value} {...option} />
+                      ))}
+                    </Dropdown.Menu>
+                  </Dropdown.Menu>
+                </Dropdown>
+            </Segment>
+          </Sticky>
+
           <Segment>
-            <Grid columns={2} relaxed='very'>
-              <Grid.Column>
+            <Grid relaxed='very'>
+              <Grid.Column width={8}>
                 <p>
                   <Image src={require('../image/1.jpg')} />
                 </p>
@@ -113,8 +189,7 @@ class Home extends React.Component {
                 <option value='Dutch' />
               </datalist>                       
               </Grid.Column>
-              
-              <Grid.Column>
+              <Grid.Column width={8}>
                   <Image src={require('../image/2.jpg')} size='large' wrapped />
                 <p>
                   <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
@@ -186,12 +261,8 @@ class Home extends React.Component {
               </Grid.Column>
             </Grid>
 
-            <Divider vertical>            
-              <Link to="/image">
-                <Button primary>To Image Page</Button>        
-              </Link>
-              <Category/>          
-            </Divider>
+            
+
           </Segment>          
           <Container textAlign='left'>Left Aligned</Container>
           <Container textAlign='center'>Center Aligned</Container>
@@ -230,7 +301,7 @@ class Home extends React.Component {
               ultricies nisi.
             </p>            
           </Container>
-
+          </div>
         </MainProvider>
       );          
     }
