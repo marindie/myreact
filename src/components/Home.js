@@ -69,20 +69,26 @@ const menuOptions = [
 ]
 
 class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {isSearchOn: true};
+
+    // 콜백에서 `this`가 작동하려면 아래와 같이 바인딩 해주어야 합니다.
+    this.handleClick = this.handleClick.bind(this);
+  }
+
   inputRef = createRef()
   contextRef = createRef()
   handleClick = () => this.inputRef.current.focus()
-
+  
     render() {
       return (
         <MainProvider>
           <div ref={this.contextRef}>
           <Sticky context={this.contextRef}>  
             <Segment inverted color='violet' >
-                <Dropdown icon='star'>
+                <Dropdown icon='star' onClick={this.menuClick}>
                   <Dropdown.Menu>
-                    <Input icon='search' iconPosition='left' className='search' />
-                    <Dropdown.Divider />
                     <Dropdown.Header icon='tags' content='Article' />
                     <Dropdown.Menu scrolling>
                       {menuOptions.map((option) => (
