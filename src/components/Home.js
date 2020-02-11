@@ -1,6 +1,6 @@
 import React, { createRef } from 'react';
 import { Link } from "react-router-dom";
-import { Sticky, Select, Label, Dropdown, Input, Container, Divider, Grid, Image, Segment, Button, Icon, Ref } from 'semantic-ui-react'
+import { Sticky, Select, Label, Dropdown, Input, Container, Divider, Grid, Image, Segment, Button, Icon, Menu,  } from 'semantic-ui-react'
 import '../App.css';
 import MainProvider from './MainProvider';
 import Category from './Category';
@@ -71,7 +71,10 @@ const menuOptions = [
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {isSearchOn: true};
+    this.state = {
+      isSearchOn: true,
+      activeItem: 'home'
+    };
 
     // 콜백에서 `this`가 작동하려면 아래와 같이 바인딩 해주어야 합니다.
     this.handleClick = this.handleClick.bind(this);
@@ -81,6 +84,7 @@ class Home extends React.Component {
   mainRef = createRef()
   contextRef = createRef()
   handleClick = () => this.inputRef.current.focus()
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
   
     render() {
       return (
@@ -89,23 +93,41 @@ class Home extends React.Component {
               <Grid>
                 <Grid.Row>
                   <Grid.Column>                
-                    <Sticky context={this.mainRef}>  
-                      <Segment inverted color='violet' >
-                          <Dropdown icon='star' onClick={this.menuClick}>
-                            <Dropdown.Menu>
-                              <Dropdown.Header icon='tags' content='Article' />
-                              <Dropdown.Menu scrolling>
-                                {menuOptions.map((option) => (
-                                  <Dropdown.Item key={option.value} {...option} />
-                                ))}
+                    <Sticky context={this.mainRef}>   
+                  
+                          <Menu inverted color='violet' pointing secondary stackable>  
+                            <Dropdown icon={{ name: 'star', circular: true, link: true, color: 'green', fitted: true, inverted: true, size: 'large' }}>
+                              <Dropdown.Menu>
+                                <Dropdown.Header icon='tags' content='Article' />
+                                <Dropdown.Menu scrolling>
+                                  {menuOptions.map((option) => (
+                                    <Dropdown.Item key={option.value} {...option} />
+                                  ))}
+                                </Dropdown.Menu>
                               </Dropdown.Menu>
-                            </Dropdown.Menu>
-                          </Dropdown>
-                      </Segment>
+                            </Dropdown>
+                            <Menu.Item
+                              name='home'
+                              active={this.state.activeItem === 'home'}
+                              onClick={this.handleItemClick}
+                            />  
+                            <Menu.Item
+                              name='signUp'
+                              active={this.state.activeItem === 'signUp'}
+                              onClick={this.handleItemClick}
+                            />
+                            <Menu.Item
+                              name='friends'
+                              active={this.state.activeItem === 'friends'}
+                              onClick={this.handleItemClick}
+                            />
+                          </Menu>                    
                     </Sticky>
                   </Grid.Column>
                 </Grid.Row>
+                
 
+                <Grid.Row>
                 <Grid.Column width={6}>
                   <p>
                     <Image src={require('../image/1.jpg')} />
@@ -274,6 +296,7 @@ class Home extends React.Component {
                     <Category/>
                   </Sticky>
                 </Grid.Column>
+                </Grid.Row>
                 <Grid.Row>
                   
                 </Grid.Row>

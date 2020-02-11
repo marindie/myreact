@@ -11,28 +11,28 @@ const Category = () => (
                     <Image src={require('../image/2.jpg')} wrapped ui={false}/>
                     {/* <Image src='/images/avatar/large/matthew.png' wrapped ui={false} /> */}
                     <Card.Content>
-                    <Card.Header>정승원 (Patrick)</Card.Header>
+                    <Card.Header>{context.card.name}</Card.Header>
                     <Card.Meta>
-                        <span className='date'>다 이루어 져라</span>
+                        <span className='date'>{context.card.meta}</span>
                     </Card.Meta>
                     <Card.Description>
-                        내가 하는 일들이 쉬워지는 그날 까지..ㅋ
+                        {context.card.desc}
                     </Card.Description>
                     </Card.Content>
                     <Card.Content extra>
                     <Label as='a' color='red' ribbon>
-                        My Blog
+                        {context.card.blogTitle}
                     </Label>
-                    <a href="https://marindie.github.io">긍정 코딩 꿈나무</a>
+                    <a href="https://marindie.github.io">{context.card.blogDesc}</a>
                     </Card.Content>
                 </Card>
 
                 <List animated verticalAlign='middle'>
                     {Object.keys(context.categories).map(key => (
-                            <List.Item>
+                            <List.Item key={key}>
                                 <List.Content>
-                                    <Link to="/image">
-                                        <List.Header as='a'>{context.categories[key]}</List.Header>
+                                    <Link to={context.link[key]}>
+                                        <List.Header >{context.categories[key]}</List.Header>
                                     </Link>
                                 </List.Content>
                             </List.Item>
